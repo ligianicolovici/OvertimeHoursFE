@@ -1,0 +1,57 @@
+<div class="container" style=" display: flex;
+  align-items: center;
+  justify-content: center; width: 100%; ">
+  <div style="margin-top: 10px">
+    <mat-toolbar color="primary" style="text-align: center; justify-content: center">
+      <h3>{{formTitle}}</h3>
+    </mat-toolbar>
+    <mat-card>
+      <form [formGroup]="recordForm" (ngSubmit)="onSubmit(recordForm)">
+        <mat-form-field appearance="fill">
+          <mat-label>Working Hours</mat-label>
+          <input matInput class="form-control" formControlName="overtime" required>
+          <mat-hint *ngIf="recordForm.get('overtime').touched && recordForm.get('overtime').invalid"
+               class="alert alert-danger">
+            <p *ngIf="recordForm.get('overtime')?.errors?.required">
+               Working hours can't be empty
+            </p>
+            <p *ngIf="recordForm.get('overtime')?.hasError('min')">
+              Can't insert less than 8 hours
+            </p>
+          </mat-hint>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Break Time</mat-label>
+          <input matInput formControlName="break" required>
+          <mat-hint *ngIf="recordForm.get('break').touched"
+                    class="alert alert-danger">
+            <p *ngIf="recordForm.get('break')?.errors?.required">
+             Break can't be empty
+            </p>
+            <p *ngIf="recordForm.get('break')?.hasError('max')">
+              Max value for break is 2h
+            </p>
+          </mat-hint>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Record Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date" [disabled]="isEdit" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker required></mat-datepicker>
+          <div *ngIf="recordForm.invalid && (recordForm.dirty || recordForm.touched)"
+               class="alert alert-danger">
+          </div>
+        </mat-form-field>
+        <br>
+        <div style="  display: flex;
+    align-items: center;
+    justify-content: center; width: 100%; ">
+          <button mat-raised-button color="accent" type="submit" [disabled]="recordForm.invalid">Save</button>
+          <button mat-raised-button color="primary" (click)="onClear()">Clear</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

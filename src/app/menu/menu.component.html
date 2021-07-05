@@ -1,0 +1,9 @@
+<mat-toolbar>
+  <span><a class="navbar-title" routerLink="/home" style="text-decoration: none" >Overtime o'clock</a></span>
+  <div class="example-button-row">
+    <button mat-flat-button color="primary"  (click)="checkRecords('read')">Check</button>
+    <button mat-flat-button color="primary" (click)="checkRecords('update')">Update</button>
+    <button mat-flat-button color="primary" [routerLink]="['/record', 'create']">Create</button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

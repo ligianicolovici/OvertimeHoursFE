@@ -1,0 +1,18 @@
+table {
+  width: 100%;
+}
+.overview-details{
+  margin-top: 2%;
+  justify-content: center;
+  vertical-align: middle;
+  display: table-row;
+  offset: center;
+}
+.table-container{
+  width: 100%;
+}
+.mat-form-field {
+  display: contents!important;
+  position: relative;
+  text-align: left;
+}
