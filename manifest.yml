@@ -1,0 +1,7 @@
+---
+applications:
+ - name: Overtime-FE
+   random-route: true
+   path: target/Overtime-FE.war
+   memory: 100M
+   instances: 1
