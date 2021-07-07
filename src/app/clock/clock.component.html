@@ -1,30 +1,51 @@
 <div class="dummy-card">
   <div class="clock-container">
-    <div class = "clock">
-      <div class="num num1"><div></div></div>
-      <div class="num num2"><div></div></div>
-      <div class="num num3"><div></div></div>
-      <div class="num num4"><div></div></div>
-      <div class="num num5"><div></div></div>
-      <div class="num num6">
+    <div class="clock">
+      <div class="num num1">
+        <div></div>
+      </div>
+      <div class="num num2">
+        <div></div>
+      </div>
+      <div class="num num3">
         <div>
-          <button type="button" mdbBtn color="light-blue" mdbWavesEffect [routerLink]="['/record', 'create']" >Create overtime</button>
+          <button type="button" mdbBtn color="light-blue" mdbWavesEffect (click)="checkRecords('update')">Update
+            overtime
+          </button>
         </div>
       </div>
-      <div class="num num7"><div></div></div>
-      <div class="num num8"><div>
+      <div class="num num4">
+        <div></div>
+      </div>
+      <div class="num num5">
+        <div></div>
+      </div>
+      <div class="num num6"></div>
+      <div class="num num7">
+        <div></div>
+      </div>
+      <div class="num num8">
+        <div>
 
-      </div></div>
+        </div>
+      </div>
       <div class="num num9">
         <div>
-          <button type="button" mdbBtn color="light-blue" mdbWavesEffect (click)="checkRecords('read')">Check overtime</button>
+          <button type="button" mdbBtn color="light-blue" mdbWavesEffect [routerLink]="['/record', 'create']">Create
+            overtime
+          </button>
         </div>
       </div>
-      <div class="num num10"><div></div></div>
-      <div class="num num11"><div></div></div>
+      <div class="num num10">
+        <div></div>
+      </div>
+      <div class="num num11">
+        <div></div>
+      </div>
       <div class="num num12">
         <div>
-          <button type="button" mdbBtn color="light-blue" mdbWavesEffect (click)="checkRecords('update')">Update overtime</button>
+          <button type="button" mdbBtn color="light-blue" mdbWavesEffect (click)="checkRecords('read')">Check overtime
+          </button>
         </div>
       </div>
       <div class="hr-hand" #hrHand></div>
@@ -33,6 +54,5 @@
     </div>
   </div>
 </div>
-
-
+<div class="button-wrapper">
 

@@ -30,7 +30,7 @@
              Break can't be empty
             </p>
             <p *ngIf="recordForm.get('break')?.hasError('max')">
-              Max value for break is 2h
+              Max value for break is 3h
             </p>
           </mat-hint>
         </mat-form-field>
@@ -49,7 +49,7 @@
     align-items: center;
     justify-content: center; width: 100%; ">
           <button mat-raised-button color="accent" type="submit" [disabled]="recordForm.invalid">Save</button>
-          <button mat-raised-button color="primary" (click)="onClear()">Clear</button>
+          <button mat-raised-button color="primary" type="button" (click)="onClear()">Clear</button>
         </div>
       </form>
     </mat-card>

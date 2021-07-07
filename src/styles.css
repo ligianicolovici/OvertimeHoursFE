@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-flat-button {
+  background-color:#4297b1!important;
+  font-weight: normal!important;
+}
+.mat-flat-button:hover {
+  background-color: #285869 !important;
+  font-weight: normal!important;
+  transition: background-color 200ms ;
+}
+.mat-toolbar {
+  background-color: #4297b1 !important;
+}

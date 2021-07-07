@@ -19,8 +19,6 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
   }
 
   openDialog(): void {

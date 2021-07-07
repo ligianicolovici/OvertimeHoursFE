@@ -11,11 +11,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./update-record-dialog.component.css']
 })
 export class UpdateRecordDialogComponent implements OnInit {
-  selectedDate: string;
+  selectedDate = '';
   availableDates: string[];
 
   constructor(public dialogRef: MatDialogRef<UpdateRecordDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private service: DataStorageService, private route: Router) {
+    this.availableDates = this.service.allAvailableDates;
   }
 
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class UpdateRecordDialogComponent implements OnInit {
 
   onSelect(value: any): void {
     console.log(value);
+    this.selectedDate = value.toString();
     this.service.fetchRecordByDate(value);
 
   }

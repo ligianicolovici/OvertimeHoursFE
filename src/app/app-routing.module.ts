@@ -8,12 +8,16 @@ import {MenuComponent} from './menu/menu.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    component: ClockComponent,
+  },
+  {
+    path: '',
     component: MenuComponent,
     children: [
       {
         path: 'home',
-        pathMatch: 'full',
-        component: ClockComponent
+        redirectTo: '',
       },
       {
         path: 'overview',

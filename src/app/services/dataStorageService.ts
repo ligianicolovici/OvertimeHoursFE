@@ -19,25 +19,24 @@ export class DataStorageService {
   constructor(private http: HttpClient) {
   }
 
-  public addRecord(recordToBeAdded: RecordHours): void {
-    this.http.post(this.rootURL + 'records/create', recordToBeAdded).subscribe();
+  public addRecord(recordToBeAdded: RecordHours): Observable<any> {
+    this.isServiceLoading.next(true);
+    return this.http.post(this.rootURL + 'records/create', recordToBeAdded).pipe(tap(() => {
+      this.isServiceLoading.next(false);
+      }
+    ));
   }
 
-  public updateRecord(updatedRecord: RecordHours): void {
-    this.http.post(this.rootURL + 'records/update', updatedRecord).subscribe();
+  public updateRecord(updatedRecord: RecordHours): Observable<any> {
+    this.isServiceLoading.next(true);
+    return this.http.post(this.rootURL + 'records/update', updatedRecord).pipe(tap(() => {
+        this.isServiceLoading.next(false);
+      }
+    ));
   }
 
   public removeRecord(dateOfRecordToBeDeleted: string): Observable<any> {
     return this.http.delete(this.rootURL + 'records/delete/' + dateOfRecordToBeDeleted);
-  }
-
-  public fetchAllRecords(): any {
-    this.allRecords = [];
-    return this.http.get<RecordHours[]>(this.rootURL + 'records/all').pipe(take(4)).subscribe(records => {
-      if (records.length !== 0) {
-        this.allRecords = records;
-      }
-    });
   }
 
   getAllRecords(): Observable<RecordHours[]> {
@@ -66,26 +65,13 @@ export class DataStorageService {
     ));
   }
 
-  getAllRecordsDates(): any {
+  getAllRecordsDates(): Observable<any>  {
     this.isServiceLoading.next(true);
 
     return this.http.get<string[]>(this.rootURL + 'records/dates').pipe(tap(dates => {
       this.allAvailableDates = dates;
       this.isServiceLoading.next(false);
     }));
-  }
-
-  public fetchTotalHours(): any {
-    return this.http.get<number>(this.rootURL + 'records/hours').pipe().subscribe(totalHours => {
-      this.totalHours = totalHours;
-    });
-  }
-
-
-  public fetchTotalDays(): any {
-    return this.http.get<number>(this.rootURL + 'records/days').pipe().subscribe(totalDays => {
-      this.totalDays = totalDays;
-    });
   }
 
   public fetchRecordByDate(date: string): any {

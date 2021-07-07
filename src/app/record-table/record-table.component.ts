@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatBottomSheet} from '@angular/material/bottom-sheet';
@@ -16,8 +16,8 @@ import {Subscription} from 'rxjs';
   templateUrl: './record-table.component.html',
   styleUrls: ['./record-table.component.css']
 })
-export class RecordTableComponent implements OnInit {
-  displayedColumns: string[] = ['date', 'daybreak', 'dailyHours', 'deleteButton'];
+export class RecordTableComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['date', 'dailyHours', 'daybreak', 'deleteButton'];
   dataSource: MatTableDataSource<RecordHours>;
   records: RecordHours[];
   totalHours: number;
@@ -27,13 +27,18 @@ export class RecordTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private bottomSheet: MatBottomSheet, private dataStorageService: DataStorageService, private snackBar: MatSnackBar) {
+  constructor(private bottomSheet: MatBottomSheet, private dataStorageService: DataStorageService, private snackBar: MatSnackBar, private changeDetectionRef: ChangeDetectorRef) {
 
   }
 
-
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.dataStorageService.isServiceLoading.next(true);
     this.dataStorageService.getAllRecords().pipe(take(1)).subscribe(records => {
+        this.dataStorageService.isServiceLoading.next(false);
         this.dataSource = new MatTableDataSource(records);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -42,10 +47,12 @@ export class RecordTableComponent implements OnInit {
   }
 
   onDeleteRecord(recordToDelete: RecordHours): void {
-    this.dataStorageService.removeRecord(recordToDelete.date).subscribe(() =>
-      this.dataStorageService.getAllRecords().subscribe(records => {
-        this.fillTableDataSource(records);
-      })
+    this.dataStorageService.removeRecord(recordToDelete.date).subscribe(() => {
+        this.dataStorageService.getAllRecords().subscribe(records => {
+          this.fillTableDataSource(records);
+        });
+        this.dataStorageService.getAllRecordsDates().pipe(take(1)).subscribe();
+      }
     );
     this.openSnackBar('Record deleted successfully!', 'Okay :)');
   }
