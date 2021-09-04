@@ -8,7 +8,8 @@ import {BehaviorSubject, Observable, ReplaySubject, Subject} from 'rxjs';
   providedIn: 'root'
 })
 export class DataStorageService {
-  private rootURL = 'http://localhost:8080/';
+   //private rootURL = 'http://localhost:5000/';
+  private rootURL = 'https://overtimehoursbe.eu-gb.mybluemix.net/';
   allRecords: RecordHours[] = [];
   totalHours: number;
   totalDays: number;
